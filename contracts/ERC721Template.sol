@@ -72,7 +72,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
 
-    function setBaseUri(string memory baseTokenURI) public onlyRole(OPERATOR_ROLE) {
+    function setBaseURI(string memory baseTokenURI) public onlyRole(OPERATOR_ROLE) {
         _baseTokenURI = baseTokenURI;
     }
 
