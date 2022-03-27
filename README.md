@@ -28,8 +28,11 @@ ACCOUNT_PRIVATE_KEY = "YOUR_PRIVATE_KEY"
 NETWORK="rinkeby"
 ```
 
-
 ### Compile
+```SHELL
+npm ci
+```
+
 ```SHELL
 npx hardhat compile
 ```
