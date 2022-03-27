@@ -14,6 +14,6 @@ task("deployERC20", "Deploys the ERC20Template.sol contract").setAction(async fu
 
 task("deployERC721", "Deploys the ERC721Template.sol contract").setAction(async function (taskArguments, hre) {
     const contractFactory = await hre.ethers.getContractFactory("ERC721Template", getAccount());
-    const erc721 = await contractFactory.deploy("NFT Token", "NFT", "0x2a17E171D110E8C62562F84837B1E3b55159b05B");
+    const erc721 = await contractFactory.deploy("NFT Token", "NFT", 1, "0x2a17E171D110E8C62562F84837B1E3b55159b05B");
     console.log(`Contract deployed to address: ${erc721.address}`);
 })

@@ -12,6 +12,9 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     /// @dev Base token URI used as a prefix by tokenURI().
     string private _baseTokenURI;
 
+    /// @dev Contract URI used for storefront-level metadata.
+    string private _contractURI;
+
     mapping(address => bool) internal blackListAccounts;
     mapping(uint256 => bool) internal blackListTokenIds;
 
@@ -45,7 +48,8 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
      *
      * See {ERC721-tokenURI}.
      */
-    constructor(string memory name, string memory symbol, address owner) ERC721(name, symbol) {
+    constructor(string memory name, string memory symbol, uint256 startTokenId, address owner) ERC721(name, symbol) {
+        tokenIds = startTokenId;
         _setupRole(DEFAULT_ADMIN_ROLE, owner);
         _setupRole(MINTER_ROLE, owner);
         _setupRole(OPERATOR_ROLE, owner);
@@ -78,6 +82,14 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
+    }
+
+     function setContractURI(string memory contractURI) public onlyRole(OPERATOR_ROLE) {
+        _contractURI = contractURI;
+    }
+
+    function ContractURI() internal view virtual returns (string memory) {
+        return _contractURI;
     }
 
     /**
@@ -128,7 +140,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
     function remint(address to, uint256 tokenId) public onlyRole(MINTER_ROLE) {
-        require(tokenId <= tokenIds, "Remint: tokenid must less than tokenIds");
+        require(tokenId < tokenIds, "Remint: tokenid must less than tokenIds");
         _mint(to, tokenId);
     }
 
@@ -152,15 +164,21 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
         emit UnblackListTokenId(tokenId);
     }
 
-    function blackListed(address from, address to, uint256 tokenId) public view returns (bool) {
-        return blackListAccounts[from] || blackListAccounts[to] || blackListTokenIds[tokenId];
+    function blackListedAccount(address account) public view returns (bool) {
+        return blackListAccounts[account];
+    }
+
+    function blackListedTokenId(uint256 tokenId) public view returns (bool) {
+        return blackListTokenIds[tokenId];
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId) internal virtual override {
         super._beforeTokenTransfer(from, to, tokenId);
         
         require(!paused(), "_beforeTokenTransfer: token transfer while paused");
-        require(!blackListed(from, to, tokenId), "_beforeTokenTransfer: address or tokenId is blacklisted");
+        require(!blackListedAccount(from), "_beforeTokenTransfer: sender is blacklisted");
+        require(!blackListedAccount(to), "_beforeTokenTransfer: recipient is blacklisted");
+        require(!blackListedTokenId(tokenId), "_beforeTokenTransfer: tokenId is blacklisted");
     }
 
     /**

@@ -60,7 +60,9 @@ chmod u+x ./tools/solt-linux-x64
 ./tools/solt-linux-x64 write contracts/ERC20Template.sol --npm
 ```
 
-Browse to your contract address in etherscan and verify contract use **Standard-Input-Json**
+Browse to your contract address in etherscan and verify contract 
+- Select compiler type **Solidity(Standard-Input-Json)**
+- Select compiler version v0.8.1 or the version corresponding to your hardhat
 
 
 ### Customization
