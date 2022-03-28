@@ -12,8 +12,7 @@
 ├── package.json
 ├── scripts
 │   ├── deploy.js
-│   ├── helpers.js
-│   └── mint.js
+│   └── helpers.js
 └── tools
     ├── solt-linux-x64
     └── solt-mac
@@ -22,7 +21,10 @@
 ### Prerequisite
 
 #### Node.js 
+
 Hardhat recommend using the current LTS Node.js version. You can learn about it [here](https://nodejs.org/en/about/releases/) 
+
+recommend v16.x, you can download [here](https://nodejs.org/download/release/latest-v16.x/)
 
 #### .env file
 
