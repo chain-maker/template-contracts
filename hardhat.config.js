@@ -28,6 +28,10 @@ module.exports = {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
     },
+    polygon: {
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
+    },
     ethereum: {
       chainId: 1,
       url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}`,

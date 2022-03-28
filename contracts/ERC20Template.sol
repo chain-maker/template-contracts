@@ -33,13 +33,12 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
      *
      * See {ERC20-constructor}.
      */
-    constructor(string memory name_, string memory symbol_, uint8 decimals_, uint256 initialSupply_, address owner_) ERC20(name_, symbol_) {
+    constructor(string memory name_, string memory symbol_, uint8 decimals_, address owner_) ERC20(name_, symbol_) {
         _setupRole(DEFAULT_ADMIN_ROLE, owner_);
         _setupRole(MINTER_ROLE, owner_);   
         _setupRole(OPERATOR_ROLE, owner_); 
 
         _setupDecimals(decimals_);
-        _mint(owner_, initialSupply_);
     }
 
     function decimals() public view virtual override returns (uint8) {
