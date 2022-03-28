@@ -77,7 +77,7 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
      *
      * Requirements:
      *
-     * - the caller must have the `OPERATOR_ROLE`.
+     * - the caller must have the `DEFAULT_ADMIN_ROLE`.
      */
     function pause() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _pause();
@@ -90,7 +90,7 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
      *
      * Requirements:
      *
-     * - the caller must have the `OPERATOR_ROLE`.
+     * - the caller must have the `DEFAULT_ADMIN_ROLE`.
      */
     function unpause() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _unpause();

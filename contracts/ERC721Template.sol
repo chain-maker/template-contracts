@@ -56,14 +56,6 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
     /**
-     * @dev Throws if called by any account doesn't have operator role.
-     */
-    modifier onlyOperator() {
-        require(hasRole(OPERATOR_ROLE, _msgSender()), "onlyOperator: must have operater role to do the action ");
-        _;
-    }
-
-    /**
      * @dev Burns `tokenId`. See {ERC721-_burn}.
      *
      * Requirements:
@@ -99,7 +91,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
      *
      * Requirements:
      *
-     * - the caller must have the `OPERATOR_ROLE`.
+     * - the caller must have the `DEFAULT_ADMIN_ROLE`.
      */
     function pause() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _pause();
@@ -112,7 +104,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
      *
      * Requirements:
      *
-     * - the caller must have the `OPERATOR_ROLE`.
+     * - the caller must have the `DEFAULT_ADMIN_ROLE`.
      */
     function unpause() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _unpause();
@@ -127,7 +119,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
      *
      * Requirements:
      *
-     * - the caller must have the `OPERATOR_ROLE`.
+     * - the caller must have the `MINTER_ROLE`.
      */
     function mint(address to) public onlyRole(MINTER_ROLE) {
         _mint(to, tokenIds++);
