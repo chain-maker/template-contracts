@@ -20,6 +20,12 @@
 ```
 
 ### Prerequisite
+
+#### Node.js 
+Hardhat recommend using the current LTS Node.js version. You can learn about it [here](https://nodejs.org/en/about/releases/) 
+
+#### .env file
+
 Prepare `.env` file under project root directory.
 
 ```.env
