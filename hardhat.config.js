@@ -24,11 +24,7 @@ module.exports = {
       url: `https://eth-rinkeby.alchemyapi.io/v2/${ALCHEMY_KEY}`,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
     },
-    mumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_KEY}`,
-      accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
-    },
-    polygon: {
+    matic: {
       url: `https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`,
       accounts: [`0x${ACCOUNT_PRIVATE_KEY}`]
     },

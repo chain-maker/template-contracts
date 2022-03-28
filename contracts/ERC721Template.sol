@@ -132,7 +132,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
     function remint(address to, uint256 tokenId) public onlyRole(MINTER_ROLE) {
-        require(tokenId < tokenIds, "Remint: tokenid must less than tokenIds");
+        require(tokenId < tokenIds, "Remint: tokenId must less than tokenIds");
         _mint(to, tokenId);
     }
 
