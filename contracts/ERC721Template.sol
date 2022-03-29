@@ -76,8 +76,8 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
         return _baseTokenURI;
     }
 
-     function setContractURI(string memory contractURI) public onlyRole(OPERATOR_ROLE) {
-        _contractURI = contractURI;
+     function setContractURI(string memory contractURI_) public onlyRole(OPERATOR_ROLE) {
+        _contractURI = contractURI_;
     }
 
     function contractURI() public view virtual returns (string memory) {
