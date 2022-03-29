@@ -80,7 +80,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
         _contractURI = contractURI;
     }
 
-    function ContractURI() public view virtual returns (string memory) {
+    function contractURI() public view virtual returns (string memory) {
         return _contractURI;
     }
 
