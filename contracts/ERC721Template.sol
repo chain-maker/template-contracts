@@ -126,7 +126,7 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
     function mintBatch(address to, uint256 count) public onlyRole(MINTER_ROLE) {
-        for (uint i = 0; i < count; i++) {
+        for (uint256 i = 0; i < count; ++i) {
             _mint(to, tokenIds++);
         }
     }
