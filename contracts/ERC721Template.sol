@@ -131,6 +131,18 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
         }
     }
 
+    /// @notice Transfers the ownership of multiple NFTs from one address to another address
+    /// @param from The current owner of the NFT
+    /// @param to The new owner
+    /// @param ids The NFTs to transfer
+    function safeBatchTransferFrom(address from, address to, uint256[] memory ids) public {
+        for (uint256 i = 0; i < ids.length; ++i) {
+            uint256 id = ids[i];
+            safeTransferFrom(from, to, id, "");
+        }
+    }
+
+
     function remint(address to, uint256 tokenId) public onlyRole(MINTER_ROLE) {
         require(tokenId < tokenIds, "Remint: tokenId must less than tokenIds");
         _mint(to, tokenId);
