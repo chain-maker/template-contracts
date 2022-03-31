@@ -6,8 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
+    using SafeERC20 for IERC20;
 
     uint8 private _decimals;
     mapping(address => bool) internal blackListAccounts;
@@ -120,7 +122,7 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
     function withdrawERC20(address tokenAddress, address to) public onlyRole(DEFAULT_ADMIN_ROLE) {
         IERC20 token = IERC20(tokenAddress);
         uint256 balance = token.balanceOf(address(this));
-        token.transfer(to, balance);
+        token.safeTransfer(to, balance);
     }
 
     function withdrawERC721(address tokenAddress, address to, uint256 tokenId) public onlyRole(DEFAULT_ADMIN_ROLE) {
