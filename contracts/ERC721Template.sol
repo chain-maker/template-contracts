@@ -211,6 +211,6 @@ contract ERC721Template is AccessControl, Pausable, ERC721 {
     }
 
     function withdrawERC721(address tokenAddress, address to, uint256 tokenId) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        IERC721(tokenAddress).transferFrom(address(this), to, tokenId);
+        IERC721(tokenAddress).safeTransferFrom(address(this), to, tokenId);
     }
 }
