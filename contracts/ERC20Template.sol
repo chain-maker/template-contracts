@@ -17,6 +17,7 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
     
+    uint256 private immutable _cap;
 
     /**
      * @dev Emitted when the account is added to blacklist.
@@ -35,12 +36,23 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
      *
      * See {ERC20-constructor}.
      */
-    constructor(string memory name_, string memory symbol_, uint8 decimals_, address owner_) ERC20(name_, symbol_) {
+    constructor(string memory name_, string memory symbol_, uint8 decimals_, uint256 cap_, address owner_) ERC20(name_, symbol_) {
+
+        require(cap_ > 0, "constructor: cap is 0");
+        _cap = cap_;
+
         _setupRole(DEFAULT_ADMIN_ROLE, owner_);
         _setupRole(MINTER_ROLE, owner_);   
         _setupRole(OPERATOR_ROLE, owner_); 
 
         _setupDecimals(decimals_);
+    }
+
+    /**
+     * @dev Returns the cap on the token's total supply.
+     */
+    function cap() public view virtual returns (uint256) {
+        return _cap;
     }
 
     function decimals() public view virtual override returns (uint8) {
@@ -68,6 +80,7 @@ contract ERC20Template is AccessControl, Pausable, ERC20Burnable {
      * - the caller must have the `MINTER_ROLE`.
      */
     function mint(address to, uint256 amount) public virtual onlyRole(MINTER_ROLE) {
+        require(ERC20.totalSupply() + amount <= cap(), "mint: cap exceeded");
         _mint(to, amount);
     }
 
